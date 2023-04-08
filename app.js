@@ -1,14 +1,28 @@
 const express = require("express");
+const app = express();
 const morgan = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
 const personRouter = require("./controllers/persons");
-const app = express();
+const mongoose = require("mongoose");
+// const logger = require("./utils/logger");
+const config = require("./utils/config");
+const middleware = require("./utils/middleware");
 
 // eslint-disable-next-line no-unused-vars
 
+mongoose.set("strictQuery", false);
+
+mongoose
+  .connect(config.MONGODB_URI)
+  .then(() => {
+    console.log("connected to MongoDB");
+  })
+  .catch((error) => {
+    console.log("error connecting to MongoDB:", error.message);
+  });
+
 app.use(express.static("build"));
-app.use(express.static(__dirname + "/public"));
 
 app.use(express.json());
 app.use(cors());
@@ -22,18 +36,9 @@ app.use(
 
 app.use("/api/persons", personRouter);
 
-const errorHandler = (error, request, response, next) => {
-  console.error(error.message);
+// app.use(errorHandler);
 
-  if (error.name === "CastError") {
-    return response.status(400).send({ error: "malformatted id" });
-  } else if (error.name === "ValidationError") {
-    return response.status(400).json({ error: error.message });
-  }
-
-  next(error);
-};
-
-app.use(errorHandler);
+app.use(middleware.unknownEndpoint);
+app.use(middleware.errorHandler);
 
 module.exports = app;
