@@ -40,5 +40,6 @@ app.use("/api/persons", personRouter);
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
+app.use(middleware.requestLogger);
 
 module.exports = app;
