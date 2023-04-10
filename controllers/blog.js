@@ -29,4 +29,21 @@ blogRouter.post("/", (req, res) => {
     });
 });
 
+blogRouter.get("/", (req, res) => {
+  Blog.find({})
+    .then((response) => {
+      if (!response.length) {
+        res.status(400).json("No blog found");
+      } else {
+        res.status(200).json({
+          message: "Blogs fetched",
+          result: response,
+        });
+      }
+    })
+    .catch((error) => {
+      res.status(400).json(error.message);
+    });
+});
+
 module.exports = blogRouter;
