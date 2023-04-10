@@ -4,21 +4,20 @@ const Blog = require("../models/Blog");
 const blogRouter = express.Router();
 
 blogRouter.post("/", (req, res) => {
-  const body = req.body;
+  const { author, title, url, voteCount } = req.body;
 
-  if (!body.name) {
-    return res.status(404).json({ error: "name or phone is missing" });
-  }
-  if (!body.phone) {
-    return res.status(404).json({ error: "name or phone is missing" });
+  if (!author || !title || !url || !voteCount) {
+    return res.status(404).json({ error: "All fields must be entered" });
   }
 
-  const newUsewr = new Blog({
-    name: body.name,
-    phone: body.phone,
+  const newBlog = new Blog({
+    author,
+    title,
+    url,
+    voteCount,
   });
 
-  newUsewr
+  newBlog
     .save()
     .then((response) => {
       res.status(200).json({
