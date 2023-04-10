@@ -3,11 +3,11 @@ const app = express();
 const morgan = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
-const personRouter = require("./controllers/persons");
 const mongoose = require("mongoose");
 // const logger = require("./utils/logger");
 const config = require("./utils/config");
 const middleware = require("./utils/middleware");
+const blogRouter = require("./controllers/blog");
 
 // eslint-disable-next-line no-unused-vars
 
@@ -34,7 +34,7 @@ app.use(
   )
 );
 
-app.use("/api/persons", personRouter);
+app.use("/api/blogs", blogRouter);
 
 // app.use(errorHandler);
 
