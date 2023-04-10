@@ -1,9 +1,23 @@
 const mongoose = require("mongoose");
 
 const BlogSchema = new mongoose.Schema({
-  name: {
+  author: {
     type: String,
     minLength: 3,
+    required: true,
+  },
+  title: {
+    type: String,
+    minLength: 3,
+    required: true,
+  },
+  url: {
+    type: String,
+    minLength: 3,
+    required: true,
+  },
+  voteCount: {
+    type: String,
     required: true,
   },
 });
@@ -16,6 +30,6 @@ BlogSchema.set("toJSON", {
   },
 });
 
-const Blog = mongoose.model("person", BlogSchema);
+const Blog = mongoose.model("blog", BlogSchema);
 
 module.exports = Blog;
