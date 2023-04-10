@@ -4,9 +4,9 @@ const Blog = require("../models/Blog");
 const blogRouter = express.Router();
 
 blogRouter.post("/", (req, res) => {
-  const { author, title, url, voteCount } = req.body;
+  const { author, title, url, likes } = req.body;
 
-  if (!author || !title || !url || !voteCount) {
+  if (!author || !title || !url || !likes) {
     return res.status(404).json({ error: "All fields must be entered" });
   }
 
@@ -14,7 +14,7 @@ blogRouter.post("/", (req, res) => {
     author,
     title,
     url,
-    voteCount,
+    likes,
   });
 
   newBlog

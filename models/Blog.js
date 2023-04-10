@@ -16,9 +16,8 @@ const BlogSchema = new mongoose.Schema({
     minLength: 3,
     required: true,
   },
-  voteCount: {
-    type: String,
-    required: true,
+  likes: {
+    type: Number,
   },
 });
 
