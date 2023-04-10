@@ -37,7 +37,9 @@ describe("Get total likes", () => {
     const result = total;
     expect(result).toBe(60);
   });
+});
 
+describe("Get post with the most likes", () => {
   test("Should return the blog post with the hightest number of likes", () => {
     const blogPosts = [
       {
