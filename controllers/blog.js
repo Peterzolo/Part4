@@ -23,21 +23,16 @@ blogRouter.post("/", async (req, res) => {
   }
 });
 
-blogRouter.get("/", (req, res) => {
-  Blog.find({})
-    .then((response) => {
-      if (!response.length) {
-        res.status(400).json("No blog found");
-      } else {
-        res.status(200).json({
-          message: "Blogs fetched",
-          result: response,
-        });
-      }
-    })
-    .catch((error) => {
-      res.status(400).json(error.message);
-    });
+blogRouter.get("/", async (req, res) => {
+  try {
+    const posts = await Blog.find();
+    if (!posts.length) {
+      return res.status(400).json({ message: "No post was found" });
+    }
+    res.status(200).json({ result: posts });
+  } catch (error) {
+    res.status(403).json(error);
+  }
 });
 
 module.exports = blogRouter;
