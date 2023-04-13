@@ -13,6 +13,11 @@ describe("blog post API", () => {
   });
 });
 
+test.only("blog posts have id as the unique identifier property", () => {
+  expect(helper.initialBlogposts.id).toBeDefined();
+  expect(helper.initialBlogposts._id).toBeUndefined();
+});
+
 afterAll(async () => {
   await mongoose.connection.close();
 });

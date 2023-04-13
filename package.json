@@ -10,13 +10,14 @@
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push",
     "mongo": "node mongo.js producer",
     "lint": "eslint . --fix",
-    "test": "cross-env NODE_ENV=test jest --verbose --runInBand"
+    "test": "jest --verbose --runInBand"
   },
   "author": "Peter Solomon",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
+    "electron": "^24.1.1",
     "express": "^4.18.2",
     "express-async-errors": "^3.1.1",
     "mime": "^3.0.0",
@@ -31,6 +32,6 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "globalTeardown": "./test-teardown.js"
+    "globalTeardown": "./test_teardown.js"
   }
 }
