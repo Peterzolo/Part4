@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const config = require("./utils/config");
 const middleware = require("./utils/middleware");
 const blogRouter = require("./controllers/blog");
+require("express-async-errors");
 
 // eslint-disable-next-line no-unused-vars
 
@@ -35,8 +36,6 @@ app.use(
 );
 
 app.use("/api/blogs", blogRouter);
-
-// app.use(errorHandler);
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);

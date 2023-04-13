@@ -3,30 +3,24 @@ const Blog = require("../models/Blog");
 
 const blogRouter = express.Router();
 
-blogRouter.post("/", (req, res) => {
+blogRouter.post("/", async (req, res) => {
   const { author, title, url, likes } = req.body;
 
-  if (!author || !title || !url || !likes) {
-    return res.status(404).json({ error: "All fields must be entered" });
-  }
-
-  const newBlog = new Blog({
-    author,
-    title,
-    url,
-    likes,
-  });
-
-  newBlog
-    .save()
-    .then((response) => {
-      res.status(200).json({
-        result: response,
-      });
-    })
-    .catch((error) => {
-      res.status(400).json(error.message);
+  try {
+    if (!author || !title || !url || !likes) {
+      return res.status(404).json({ error: "All fields must be entered" });
+    }
+    const newBlog = new Blog({
+      author,
+      title,
+      url,
+      likes,
     });
+    const savedBlog = await newBlog.save();
+    res.status(200).json({ result: savedBlog });
+  } catch (error) {
+    res.status(403).json(error);
+  }
 });
 
 blogRouter.get("/", (req, res) => {
