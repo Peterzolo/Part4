@@ -3,6 +3,7 @@ const User = require("../models/User");
 
 exports.addPost = async (req, res) => {
   const body = req.body;
+  console.log("BODY", body);
   try {
     const user = await User.findById(req.body.userId);
     const newBlog = new Blog({
