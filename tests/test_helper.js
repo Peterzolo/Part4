@@ -1,4 +1,5 @@
-// const Blog = require("../models/Blog");
+const Blog = require("../models/Blog");
+const User = require("../models/User");
 
 const initialBlogposts = [
   {
@@ -72,6 +73,31 @@ const initialBlogposts = [
     id: "64379eb670d5dcf06ae0547f",
   },
 ];
+
+// const nonExistingId = async () => {
+//   const note = new Note({ content: "willremovethissoon" });
+//   await note.save();
+//   await note.remove();
+
+//   return note._id.toString();
+// };
+
+const blogsInDb = async () => {
+  const notes = await Blog.find({});
+  return notes.map((note) => note.toJSON());
+};
+
+const usersInDb = async () => {
+  const users = await User.find({});
+  return users.map((u) => u.toJSON());
+};
+
+module.exports = {
+  initialBlogposts,
+  // nonExistingId,
+  blogsInDb,
+  usersInDb,
+};
 
 module.exports = {
   initialBlogposts,
