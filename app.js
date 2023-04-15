@@ -7,12 +7,9 @@ const mongoose = require("mongoose");
 // const logger = require("./utils/logger");
 const config = require("./utils/config");
 const middleware = require("./utils/middleware");
-const blogRouter = require("./controllers/blog");
 const usersRouter = require("./controllers/user");
 const loginRouter = require("./controllers/login");
-require("express-async-errors");
-
-// eslint-disable-next-line no-unused-vars
+const blogRouter = require("./routes/blog");
 
 mongoose.set("strictQuery", false);
 

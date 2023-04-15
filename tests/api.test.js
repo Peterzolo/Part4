@@ -14,10 +14,10 @@ describe("blog post API", () => {
   });
 });
 
-// test("blog posts have id as the unique identifier property", () => {
-//   expect(helper.initialBlogposts.id).toBeDefined();
-//     expect(helper.initialBlogposts._id).toBeUndefined();
-// });
+test("blog posts have id as the unique identifier property", () => {
+  expect(helper.initialBlogposts.id).toBeDefined();
+  expect(helper.initialBlogposts._id).toBeUndefined();
+});
 
 describe("POST /api/blogs", () => {
   test("should create a new blog post", async () => {

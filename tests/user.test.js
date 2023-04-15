@@ -1,40 +1,31 @@
-const User = require("../models/User");
-const helper = require("../tests/test_helper");
+const mongoose = require("mongoose");
 const supertest = require("supertest");
-const app = require("../app");
-const bcrypt = require("bcryptjs");
+const app = require("../app"); // your app
+const User = require("../models/User");
 
 const api = supertest(app);
 
-describe("when there is initially one user in db", () => {
-  beforeEach(async () => {
+describe("User API", () => {
+  beforeAll(async () => {
     await User.deleteMany({});
-
-    const passwordHash = await bcrypt.hash("sekret", 10);
-    const user = new User({ username: "root", passwordHash });
-
-    await user.save();
   });
 
-  test("creation succeeds with a fresh username", async () => {
-    const usersAtStart = await helper.usersInDb();
+  describe("when creating a new user", () => {
+    test("fails if username is too short", async () => {
+      const newUser = {
+        username: "us",
+        name: "Sammy Joe",
+        passwordHash: "password",
+      };
 
-    const newUser = {
-      username: "mluukkai",
-      name: "Matti Luukkainen",
-      password: "salainen",
-    };
+      const response = await api.post("/api/users").send(newUser);
 
-    await api
-      .post("/api/users")
-      .send(newUser)
-      .expect(201)
-      .expect("Content-Type", /application\/json/);
+      expect(response.status).toBe(404);
+      expect(response.error.message).toContain("All fields must be entered");
+    });
+  });
 
-    const usersAtEnd = await helper.usersInDb();
-    expect(usersAtEnd).toHaveLength(usersAtStart.length + 1);
-
-    const usernames = usersAtEnd.map((u) => u.username);
-    expect(usernames).toContain(newUser.username);
+  afterAll(() => {
+    mongoose.connection.close();
   });
 });
