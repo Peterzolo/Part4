@@ -31,9 +31,7 @@ app.use(cors());
 
 morgan.token("body", (req) => JSON.stringify(req.body));
 app.use(
-  morgan(
-    ":url :method :res[content-length] - :response-time ms :date[web] :body"
-  )
+  morgan(":url :method :res[content-length] - :response-time ms :date[web]")
 );
 
 app.use("/api/blogs", blogRouter);
