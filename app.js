@@ -7,9 +7,9 @@ const mongoose = require("mongoose");
 // const logger = require("./utils/logger");
 const config = require("./utils/config");
 const middleware = require("./utils/middleware");
-const usersRouter = require("./controllers/user");
 const loginRouter = require("./controllers/login");
 const blogRouter = require("./routes/blog");
+const userRouter = require("./routes/user");
 
 mongoose.set("strictQuery", false);
 
@@ -33,7 +33,7 @@ app.use(
 );
 
 app.use("/api/blogs", blogRouter);
-app.use("/api/users", usersRouter);
+app.use("/api/users", userRouter);
 app.use("/api/login", loginRouter);
 
 app.use(middleware.unknownEndpoint);

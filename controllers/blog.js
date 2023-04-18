@@ -3,8 +3,10 @@ const User = require("../models/User");
 
 exports.addPost = async (req, res) => {
   const body = req.body;
+
   try {
     const user = await User.findById(req.body.userId);
+    console;
     const newBlog = new Blog({
       author: body.author,
       title: body.title,
@@ -17,7 +19,7 @@ exports.addPost = async (req, res) => {
     user.blogs = user.blogs.concat(savedBlog._id);
     await user.save();
 
-    res.json(savedBlog);
+    res.status(200).json({ result: savedBlog });
   } catch (error) {
     res.status(403).json(error);
   }
@@ -30,6 +32,7 @@ exports.getBlogs = async (req, res) => {
       return res.status(400).json({ message: "No post was found" });
     }
     res.status(200).json({ result: posts });
+    console.log(posts);
   } catch (error) {
     res.status(403).json(error);
   }

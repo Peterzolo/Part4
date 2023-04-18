@@ -10,7 +10,8 @@
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push",
     "mongo": "node mongo.js producer",
     "lint": "eslint . --fix",
-    "test": "jest --verbose --runInBand"
+    "test": "jest --verbose --runInBand",
+    "test_watch": "jest --watch"
   },
   "author": "Peter Solomon",
   "license": "ISC",
